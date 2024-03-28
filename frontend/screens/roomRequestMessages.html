@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Swap room requests</title>
+    <link rel="stylesheet" type="text/css" href="../css/roomRequestMessages.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+</head>
+
+<body>
+    <main class="table" id="customers_table">
+
+        <section class="table__header">
+            <h1>Room swap requests</h1>
+            <div class="input-group">
+                <input type="search" placeholder="Search Rooms...">
+            </div>
+            <div class="navbar">
+                <a href="MainPage.html"><i class="fas fa-home"></i>&nbsp; &nbsp; Home</a>
+            </div>
+        </section>
+        <section class="table__body">
+            <table id="swapRequestTable">
+                <thead>
+                    <tr>
+                        <th>Student name</th>
+                        <th>Building name</th>
+                        <th>Wing</th>
+                        <th>Floor number</th>
+                        <th>Room number</th>
+                        <th>Swap request accept</th>
+                        <th>Swap request reject</th>
+                    </tr>
+                </thead>
+                <tbody id="swapRequestTableBody">
+                    <!-- Table rows will be dynamically populated here -->
+                </tbody>
+            </table>
+            
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    fetch('http://localhost:3000/routes/fetch/swapRequests')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch swap requests');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Function to generate table row HTML based on data
+        const generateTableRow = (rowData) => {
+            return `
+                <tr>
+                    <td>${rowData.NAME}</td>
+                    <td>${rowData.BUILDING_NAME}</td>
+                    <td>${rowData.WING}</td>
+                    <td>${rowData.FLOOR_NO}</td>
+                    <td>${rowData.ROOM_NUMBER}</td>
+                    <td><button class="details-accept" onclick="acceptRequest(${rowData.REQUEST_ID})">Accept</button></td>
+                    <td><button class="details-reject" data-request-id="${rowData.REQUEST_ID}" onclick="rejectRequest(${rowData.REQUEST_ID})">Reject</button></td>
+
+                </tr>
+            `;
+        };
+
+        // Get table body element
+        const tableBody = document.getElementById('swapRequestTableBody');
+
+        // Populate table rows with data
+        data.forEach(row => {
+            const newRow = generateTableRow(row);
+            tableBody.innerHTML += newRow;
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching swap requests:', error);
+        // Optionally handle error and display a message on the UI
+    });
+});
+
+function acceptRequest(REQUEST_ID) {
+    fetch('http://localhost:3000/routes/fetch/acceptSwapRequest', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ requestId: REQUEST_ID }),
+    })
+    .then(response => {
+        if (response.ok) {
+            const tableBody = document.getElementById('swapRequestTableBody');
+            tableBody.innerHTML = '';
+            alert('Request accepted successfully, your rooms are updated ');
+
+        } else {
+            alert('Error accepting request. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error accepting request. Please try again.');
+    });
+}
+
+
+function rejectRequest(REQUEST_ID) {
+    fetch('http://localhost:3000/routes/fetch/rejectSwapRequest', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ requestId: REQUEST_ID }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Find the parent row of the button that was clicked
+            const button = document.querySelector(`.details-reject[data-request-id="${REQUEST_ID}"]`);
+            if (button) {
+                const tableRowToRemove = button.closest('tr');
+                if (tableRowToRemove) {
+                    tableRowToRemove.remove();
+                    alert('Request rejected successfully. The entry has been removed from the table.');
+                    return;
+                }
+            }
+            alert('Error: Could not find the corresponding table row to remove.');
+        } else {
+            alert('Error rejecting request. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error rejecting request. Please try again.');
+    });
+}
+
+        
+</script>
+
+</body>
+
+</html>

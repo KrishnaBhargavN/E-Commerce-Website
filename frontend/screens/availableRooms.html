@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/availableRooms.css" />
+    <title>Room Exchange| NITK</title>
+    <script src="../js/availableRooms.js"></script>
+  </head>
+  <style>
+    .home-icon {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      font-size: 40px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 24px;
+    }
+
+    .home-icon:hover {
+      color: #cccccc;
+    }
+  </style>
+  <body>
+    <a href="MainPage.html" class="home-icon">
+      <span class="material-icons " style="font-size: 40px;">
+        home
+        </span>
+    </a>
+    <section class="booking" id="room-status">
+        <div class="section__container booking__container">
+          <form action="/" id="booking-form">
+            <div class="input__group">
+              <label for="block-name">Building name</label>
+              <input type="text" placeholder="building_name" />
+            </div>
+            <div class="input__group">
+              <label for="floor-number">Floor number</label>
+              <input type="text" placeholder="floor" />
+            </div>
+            <div class="input__group">
+              <label for="room-number">Room number</label>
+              <input type="text" placeholder="Room number" />
+            </div>
+            <div class="input__group">
+              <label for="room-number">Wing</label>
+              <input type="text" placeholder="wing" />
+            </div>
+          </form>
+          <div class="button">
+              <center>
+                <button type="button" class="btn" id="check-availability-btn">
+                Check availability
+              </button>
+            </center>
+          </div>
+      </section>
+
+<section class="container" id="room-status"></section>
+    <div class = "card-container">
+        
+    </div>
+
+    <div class = 'popup' id = 'popup' hi>
+        <center><h2 id = "info" >Room Details</h2></center>
+        <ul class="list">
+        <li>Building name :</li>
+        <li>Wing :</li>
+        <li >Floor number :</li>
+        <li >Room number :</li>
+        <li>Contact :</li>
+       </ul>
+        <button class = "close" onclick="closed()">
+            Close
+        </button>
+    
+    </div>
+    
+    
+    </div>
+    </section>
+    <script>
+        
+        let popup = document.getElementById('popup')
+        let popup2 = document.getElementById('popup2')
+    
+        function view(student){    
+            console.log(student);
+            var buildingName = student.BUILDING_NAME;
+            var wing = student.WING || '';
+            var floorNumber = student.FLOOR_NO || '';
+            var roomNumber = student.ROOM_NUMBER || '';
+            var contact = student.CONTACT_NUMBER || '';
+            
+            // Set text content of list items
+            popup.querySelector('li:nth-child(1)').textContent = 'Building name: ' + buildingName;
+            popup.querySelector('li:nth-child(2)').textContent = 'Wing: ' + wing;
+            popup.querySelector('li:nth-child(3)').textContent = 'Floor number: ' + floorNumber;
+            popup.querySelector('li:nth-child(4)').textContent = 'Room number: ' + roomNumber;
+            popup.querySelector('li:nth-child(5)').textContent = 'Contact: ' + contact;
+
+            popup.classList.add("open-popup");
+        }
+        function closed(){
+    
+            popup.classList.remove("open-popup");}
+
+        function view2(){
+            popup.classList.remove("open-popup");
+            popup2.classList.add("open-popup");
+        }
+        function ok(){
+            console.log("he");
+    
+            popup2.classList.remove("open-popup");}
+    </script>
+    
+
+  </body>
+</html>

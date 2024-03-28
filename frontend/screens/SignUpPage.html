@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Exchange </title>
+    <link href="https://fonts.googleapis.com/css?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/SignUpPage.css">
+</head>
+
+<body>
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="signup">
+            <form>
+                <label for="chk" aria-hidden="true">Sign Up</label>
+                <div class="user-details">
+                    <input type="text" name="txt" placeholder="Student name" required="">
+                    <input type="text" name="txt" placeholder="Student ID" required="">
+                    <input type="email" name="email" placeholder="Email" required="" id="savedEmail">
+                    <input type="text" name="txt" placeholder="Contact number" required="">
+                    <select name="gender" id="gender" required>
+                        <option value="" class="option">Gender </option>
+                        <option value="M" class="option">M</option>class="option"
+                        <option value="F" class="option">F</option>
+                    </select>
+                    <input type="password" id="password" name="pwd" placeholder="Password" required>
+                    <input type="password" id="cnfrm-password" name="pwd" placeholder="Confirm Password" required>
+                </div>
+                <p id="message"></p>
+                <button id="submitBtn" onclick="checkPassword(); saveToLocalStorage()">Submit</button>
+            </form>
+        </div>
+        <div class="login">
+            <form>
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="email" name="email" placeholder="Email" required="" id="email-id">
+                <input type="password" name="pwd" placeholder="Password" required="" id="password1">
+                <button id="submitBtn2" onclick="checkPassword2()">Login</button>
+                
+                
+            </form>
+            <div style="margin: 10px; ">
+                <center><p id="message2" ></p></center>
+            </div>
+        </div>
+    </div>
+    <script src="../js/SignUpPage.js"></script>
+</body>
+
+</html>

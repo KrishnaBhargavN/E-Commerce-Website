@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css?family=Jost:wght@500&display=swap");
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.container {
+    width: 550px;
+    height: 500px;
+    max-width: 700px;
+    padding: 25px 30px;
+    border-radius: 20px;
+    background: #573b8a;
+    overflow: hidden;
+}
+
+.container .title {
+    font-size: 2.3rem;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    padding-bottom: 15px;
+    color: white;
+}
+
+.container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 30px;
+}
+.container .title:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
+
+.container:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+    box-shadow: 0 0 40px rgb(127, 14, 208);
+}
+
+.container form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+    font-weight: bold;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.user-details ::-webkit-scrollbar {
+    width: 0;
+}
+
+form .user-details .input-box {
+    margin-bottom: 20px;
+    width: 85%;
+    border-radius: 100px;
+    padding-left: 30px;
+    height: 80px;
+}
+
+form .user-details .input-box:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+.user-details .input-box .details {
+    display: block;
+    font-weight: normal;
+    margin-bottom: 5px;
+    padding-left: 25px;
+
+}
+
+.user-details .input-box input {
+    height: 42px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding-left: 35px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+}
+
+form .button {
+    height: 45px;
+    margin: 30px 30px;
+
+}
+
+
+form .button input {
+    background: #200a48;
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    letter-spacing: 3px;
+    color: white;
+    font-weight: bold;
+    /* padding-bottom: 10px; */
+}
+
+form .button input:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s;
+    cursor: pointer;
+    background-color: #7c51ce;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Profile Details </title>
+    <link rel="stylesheet" href="../css/roomExchangeApplicationPage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <section>
+        <div class="navbar">
+            <a href="MainPage.html"><i class="fas fa-home"></i>&nbsp; &nbsp; Home</a>
+        </div>
+        <div class="container">
+            <div class="title">Guidelines</div>
+            <div class="content">
+                <div class="contact">
+                    <p>To initiate a room swap, students must list their room for exchange, ensuring mutual consent.
+                        After listing, await responses from interested individuals. Upon finding a suitable match, both
+                        parties agree on the swap. Finally, inform the administration of the arrangement to complete the
+                        process seamlessly.</p>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="details" onclick="view()">Swap request</button>
+    </section>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const email = 'example@example.com'; // Replace with the actual email
+
+  fetch(`http://localhost:3000/routes/register/checkStudentInAvailableRooms`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.result.length > 0) {
+        const button = document.querySelector('.details');
+        button.disabled = true;
+        button.innerText = 'Room Swap Request Already Exists';
+      } 
+    })
+    .catch((error) => {
+      console.error('There was a problem with your fetch operation:', error);
+    });
+});
+
+function view() {
+    const confirmation = confirm('Are you sure?');
+    if (confirmation) {
+        fetch(`http://localhost:3000/routes/register/addPersonToAvailableRooms`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ addToAvailableRooms: true }),
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            alert(data.message);
+            console.log(data); // Handle the response data as needed
+        })
+        .catch((error) => {
+            alert('Error adding student to available rooms.');
+            console.error('There was a problem with your fetch operation:', error);
+        });
+    } else {
+        alert('Confirmation not received.');
+        console.log('Confirmation not received.');
+    }
+}
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="../js/MainPage.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../css/MainPage.css" />
+    <title>Room Exchange </title>
+  </head>
+  <body>
+    <nav>
+      <button id="logout" style="margin-top: 10px; background-color: red
+      ; color: #ffffff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; float: right;">Logout</button>
+
+      <div class="nav__bar">
+        <div class="nav__header">
+          <div class="logo nav__logo">
+            <img src="https://yt3.ggpht.com/-QX4o89WhsLs/AAAAAAAAAAI/AAAAAAAAAAA/MT-DJJSnjAc/s900-c-k-no/photo.jpg"
+                alt="error loading image" height="50px" width="50px">
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i class="ri-menu-line"></i>
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="../screens/availableRooms.html">Room availability </a></li>
+          <li><a href="roomExchangeApplicationPage.html">Swap room request </a></li>
+          <li><a href="#feature">Features</a></li>
+          <li><a href="#about">About Us</a></li>
+        </ul>
+        <img src="https://yt3.ggpht.com/3aYA0Uan4b_m-f82_mLofOC1c6KtsTIWUF314OExY0blcJpYPoHm5lRk0szSbBiQPWhNteXuxQ=s900-c-k-c0x00ffffff-no-rj" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+          <div class="sub-menu">
+            <div class="user-info">
+              <h4 id="profileName"> Loading...</h4>
+            </div>
+            <hr>
+
+            <a href="ProfilePage.html" target="_blank" class="sub-menu-link">
+              <p>Profile details</p>
+              <span></span>
+            </a>
+            <a href="RoomProfileDetails.html" class="sub-menu-link">
+              <!-- <img src="images/room.png" alt="vada pav"> -->
+              <p>Room details</p>
+              <span></span>
+            </a>
+            <a href="helpAndSupport.html" class="sub-menu-link">
+              <p>Help & support</p>
+              <span></span>
+            </a>
+
+          </div>
+        </div>
+        <a href="roomRequestMessages.html" >
+          <button type="button" class="icon-button">
+            <span class="material-icons">notifications</span>
+            <span class="icon-button__badge" id="numberReq"></span>
+          </button>
+        </a>
+        
+      </div>
+    </nav>
+
+    <header class="header" id="home">
+      <div class="section__container header__container">
+        <h3 class="text-animation">Exchange room for better : <br><span></span></h3>
+      </div>
+    </header>
+
+    
+    <section class="section__container feature__container" id="feature">
+
+      <h2 class="section__header"> Features</h2>
+      <div class="feature__grid">
+        <div class="feature__card">
+          <span><i class="ri-file-list-line"></i></span>
+          <h4>Room Listings: </h4>
+          <p>
+            Enable users to list their current rooms that they want to exchange, including details such as room type,
+            facilities, and any preferences for the desired room.
+          </p>
+        </div>
+        <div class="feature__card">
+          <span><i class="ri-bookmark-line"></i></span>
+          <h4>Booking and confirmation:</h4>
+          <p>
+            Facilitate the booking process by allowing users to send exchange requests, confirmations, and manage their
+            bookings through the portal.
+          </p>
+        </div>
+        <div class="feature__card">
+          <span><i class="ri-t-box-line"></i></span>
+          <h4>Friendly interface:</h4>
+          <p>
+            Clean design, focusing only on essential elements. Forms and input fields are straightforward.
+          </p>
+        </div>
+        <!-- <div class="feature__card">
+          <span><i class="ri-lock-line"></i></span>
+          <h4>Security and Privacy:</h4>
+          <p>
+            Ensure the portal has robust security measures in place to protect user data and privacy, such as secure
+            authentication and compliance with data protection regulations.
+          </p>
+        </div>
+        <div class="feature__card">
+          <span><i class="ri-notification-line"></i></span>
+          <h4>Notification system:</h4>
+          <p>
+            Notify users about new room listings that match their preferences, messages from other users, and any updates
+            related to their listings or exchanges.
+          </p>
+        </div>
+        <div class="feature__card">
+          <span><i class="ri-feedback-line"></i></span>
+          <h4>Feedback:</h4>
+          <p>
+            Gather feedback from users to continuously improve the portal and enhance the user experience based on their
+            suggestions and experiences.
+          </p>
+        </div> -->
+      </div>
+    </section>
+
+
+    
+    <footer class="footer" id="about">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <div class="logo footer__logo">
+            <h4>About Us</h4>
+          </div>
+          <p class="section__description">
+            "Discover convenience and connectivity with our hostel room swapping platform. Seamlessly exchange rooms, meet new peers, and elevate your hostel experience. Join the community now!"
+          </p>
+          <ul class="footer__socials">
+            <li>
+              <a href="https://www.instagram.com/ietnitk/" target="_blank"><i class="ri-instagram-line"></i></a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/ietnitk/about/" target="_blank"><i class="ri-facebook-fill"></i></a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/company/ietnitk/" target="_blank"><i class="ri-linkedin-fill"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Services</h4>
+          <div class="footer__links">
+            <li><a href="#">Feedback</a></li>
+            <li><a href="#">Room Customization</a></li>
+            <li><a href="#">Room complaints</a></li>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <div class="footer__links">
+            <li>
+              <span><i class="ri-phone-fill"></i></span>
+              <div>
+                <h5>Club name</h5>
+                <p>Institution of Engineering and Technology (IET)</p>
+              </div>
+            </li>
+            <li>
+              <span><i class="ri-record-mail-line"></i></span>
+              <div>
+                <h5>Website link</h5>
+                <a href="https://linktr.ee/iet_nitk" target="_blank"><p>https://linktr.ee/iet_nitk </p></a>
+              </div>
+            </li>
+            <li>
+              <span><i class="ri-map-pin-2-fill"></i></span>
+              <div>
+                <h5>Location</h5>
+                <p>NITK, Surathkal</p>
+              </div>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2023 Web Design Mastery. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+    <script>
+      
+      let subMenu= document.getElementById("subMenu");
+
+      function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+      }
+
+    </script>
+
+<script>
+  function fetchData() {
+    fetch("http://localhost:3000/routes/profile/name", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to fetch name');
+        }
+    })
+    .then(data => {
+        const userName = data.name;
+        document.getElementById('profileName').innerText = userName;
+    })
+    .catch(error => {
+        console.error('Error fetching name:', error);
+    });
+
+    fetch("http://localhost:3000/routes/fetch/countSwapRequests", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to fetch swap requests count');
+        }
+    })
+    .then(data => {
+        const number = data.count;
+        document.getElementById('numberReq').innerText = number;
+    })
+    .catch(error => {
+        console.error('Error fetching swap requests count:', error);
+    });
+}
+
+
+fetchData();
+
+
+  const logoutButton = document.getElementById('logout');
+
+  logoutButton.addEventListener('click', async () => {
+    try {
+      const response = await fetch('http://localhost:3000/routes/authorization/logout', {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        window.location.href = 'SignUpPage.html';
+      } else {
+        alert('Logout failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('An error occurred during logout. Please try again later.');
+    }
+  });
+
+  </script>
+  </body>
+</html>

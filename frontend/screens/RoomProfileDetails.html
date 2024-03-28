@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Profile Details </title>
+    <link rel="stylesheet" href="../css/RoomProfileDetails.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Room details</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Room number</span>
+            <input type="text" placeholder="Room " required readonly>
+          </div>
+          <div class="input-box">
+            <span class="details">Wing</span>
+            <input type="text" placeholder="Wing" required readonly>
+          </div>
+          <div class="input-box">
+            <span class="details">Floor number</span>
+            <input type="text" placeholder="Floor Number" required readonly>
+          </div>
+          <div class="input-box">
+            <span class="details">Building name</span>
+            <input type="text" placeholder="Building Name" required readonly>
+          </div>
+          
+          
+        </div>
+        <div class="button">
+          <a href="MainPage.html">
+            <button type="button">Home</button>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  // Fetch room details from API
+fetch("http://localhost:3000/routes/profile/roomDetails", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Failed to fetch room details');
+    }
+    return response.json();
+})
+.then(data => {
+    // Update HTML elements with room details
+    document.querySelector('.user-details .input-box:nth-child(1) input').value = data.ROOM_NUMBER;
+    document.querySelector('.user-details .input-box:nth-child(2) input').value = data.WING;
+    document.querySelector('.user-details .input-box:nth-child(3) input').value = data.FLOOR_NO;
+    document.querySelector('.user-details .input-box:nth-child(4) input').value = data.BUILDING_NAME;
+})
+.catch(error => {
+    console.error('Error:', error);
+    // Handle errors, e.g., display a generic message or do nothing
+});
+
+</script>
+</html>

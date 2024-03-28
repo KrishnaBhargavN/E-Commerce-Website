@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/RoomDetails.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Room details</div>
+        <form action="#" method="POST" id="registerForm">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Room number</span>
+                    <input type="text" placeholder="Enter your room number" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Wing</span>
+                    <input type="text" placeholder="Enter your wing" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Floor number</span>
+                    <input type="text" placeholder="Enter your floor number" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Building name</span>
+                    <input type="text" placeholder="Enter your building name" required>
+                </div>
+            </div>
+            <center><button type="submit" style="font-size: 20px; padding: 8px;">Register</button></center>
+            
+        </form>
+    </div>
+</body>
+
+<script>
+    window.onload = function () {
+        // Retrieve URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Extract data from URL parameters
+        const studentName = urlParams.get('studentName');
+        const password = urlParams.get('password');
+        const studentId = urlParams.get('studentId');
+        const email = urlParams.get('email');
+        const contactNumber = urlParams.get('contactNumber');
+        const gender = urlParams.get('gender');
+
+        // Fill in the form fields with data from the previous page
+        document.querySelector("input[placeholder='Enter your room number']").value = "";
+        document.querySelector("input[placeholder='Enter your wing']").value = "";
+        document.querySelector("input[placeholder='Enter your floor number']").value = "";
+        document.querySelector("input[placeholder='Enter your building name']").value = "";
+
+        // Handle form submission
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data from the current page
+            const roomNumber = document.querySelector("input[placeholder='Enter your room number']").value;
+            const wing = document.querySelector("input[placeholder='Enter your wing']").value;
+            const floorNumber = document.querySelector("input[placeholder='Enter your floor number']").value;
+            const buildingName = document.querySelector("input[placeholder='Enter your building name']").value;
+
+            // Combine form data from both pages into a single JSON object
+            const formData = {
+                studentName: studentName,
+                studentId: studentId,
+                email: email,
+                password: password,
+                contact: contactNumber,
+                gender: gender,
+                room: roomNumber,
+                wing: wing,
+                floor: floorNumber,
+                buildingName: buildingName
+            };
+
+            // Convert JSON object to string
+            const formDataString = JSON.stringify(formData);
+
+
+            console.log(formDataString); 
+            postData(formDataString);
+            
+
+        });
+    };
+
+    function postData(formDataString) {
+    // Make a POST request
+    fetch('http://localhost:3000/routes/register/signUp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: formDataString
+    })
+    .then(response => {
+        if (response.ok) {
+            // Success
+            alert("Registration successful!");
+            window.location.href = "SignUpPage.html";
+        } else {
+            // Error
+            alert(response.body.status);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert(error);
+    });
+}
+</script>
+</html>

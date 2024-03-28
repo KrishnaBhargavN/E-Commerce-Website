@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css?family=Jost:wght@500&display=swap");
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #200a48;
+    min-height: 100vh;
+    padding: 10px;
+}
+.navbar {
+	justify-content: left;
+	align-items: left;
+    overflow: hidden;
+	display:flex;
+	position: relative;
+	right: 250px;
+	width: 30%;
+    height: 60px;
+    /* margin: 10px auto; */
+    color: #fff;
+    background:  rgb(108, 9, 179);
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+	margin-left: 0px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    transition: .2s ease-in;
+    cursor: pointer;
+}
+
+.navbar a {
+	float: left;
+	color: #fff;
+	/* align-items: center; */
+	padding-left: 40px;
+	padding-top: 17px;
+	text-decoration: none;
+	transition: background-color 0.3s;
+}
+
+.navbar:hover {
+	background-color: #7c51ce;
+	transform: scale(1.1);
+    transition: transform 0.1s;
+}
+.container {
+    width: 550px;
+    height: 380px;
+    max-width: 700px;
+    padding: 25px 30px;
+    border-radius: 20px;
+    background: rgb(108, 9, 179);
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.contact
+{
+    background-color: white;
+    border-radius: 14px;
+    height: 80%;
+    margin-top: 2px ;
+    margin-bottom: 4px;
+}
+.contact p{
+    padding: 30px;
+    font-family:"Poppins", sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 300px;
+}
+
+.container .title {
+    font-size: 2.3rem;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    padding-bottom: 15px;
+    color: white;
+}
+
+.container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 30px;
+}
+.container .title:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
+
+
+.container form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+    font-weight: bold;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+button {
+    height: 55px;
+    margin: 40px 130px;
+    background: rgb(108, 9, 179);
+    height: 110%;
+    width: 50%;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    letter-spacing: 3px;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+ button:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s;
+    cursor: pointer;
+    background-color: #7c51ce;
+}

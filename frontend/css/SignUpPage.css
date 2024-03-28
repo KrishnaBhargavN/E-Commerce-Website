@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css?family=Jost:wght@500&display=swap");
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #200a48;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+}
+
+.main {
+    width: 350px;
+    height: 500px;
+    background: rgb(108, 9, 179);
+    ;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.main:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px black;
+}
+
+#chk {
+    display: none;
+}
+
+.signup {
+    position: relative;
+    width: 100%;
+    height: 102%;
+}
+
+label {
+    color: #fff;
+    font-size: 2.3rem;
+    justify-content: center;
+    display: flex;
+    margin: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+    padding-bottom: 0px;
+}
+
+input {
+    width: 70%;
+    height: 18px;
+    background: white;
+    justify-content: center;
+    display: flex;
+    margin: 18px auto;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.signup input:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
+
+.login input:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
+
+
+button {
+    width: 60%;
+    height: 40px;
+    margin: 10px auto;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: #200a48;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    transition: .2s ease-in;
+    cursor: pointer;
+}
+
+.main .signup a {
+    text-decoration: none;
+    color: white;
+}
+
+button:hover {
+    background-color: #7c51ce;
+}
+
+.signup button:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s;
+}
+
+.login button:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s;
+}
+
+.login {
+    height: 460px;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transform: translateY(-180px);
+    transition: .8s ease-in-out;
+    font-size: 1em;
+}
+
+.login label {
+    color: #573b8a;
+    transform: scale(.6);
+}
+
+.login a {
+    color: white;
+    text-decoration: none;
+}
+
+#chk:checked~.login {
+    transform: translateY(-500px);
+}
+
+#chk:checked~.login label {
+    transform: scale(1);
+}
+
+#chk:checked~.signup label {
+    transform: scale(.6);
+}
+
+
+
+.signup form .user-details {
+    max-height: 180px;
+    overflow-y: scroll;
+}
+
+.user-details ::-webkit-scrollbar {
+    width: 0;
+}
+
+.signup form p {
+    margin-left: 30px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    color: white;
+    font-weight: 200px;
+    font-family: 'Jost', sans-serif;
+
+}
+
+.login form p {
+    margin-left: 40px;
+    margin-bottom: 100px;
+    padding-bottom: 50px;
+    margin-top: -40px;
+    color: black;
+    font-weight: 300px;
+    font-family: 'Jost', sans-serif;
+
+}
+
+
+.user-details label, select {
+    display: inline-block;
+    /* vertical-align: middle; */
+    margin-right: 5px;
+    margin-top: 0px;
+  }
+
+  .user-details label{
+    font-size: 17px;
+    margin-top: 0px;
+    margin-left: 40px;
+  }
+
+  .user-details select{
+    /* font-size: 20px; */
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+
+  #gender{
+    background: white;
+    padding: 10px;
+    padding-right: 127px;
+    margin-left: 40px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #message {
+    margin-left: 40px;
+    font-family: 'Jost', sans-serif;
+  }

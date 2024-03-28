@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions</title>
+  <link rel="stylesheet" href="../css/helpAndSupport.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="main">
+
+    <div class="navbar">
+      <a href="MainPage.html"><i class="fas fa-home"></i>&nbsp; &nbsp; Home</a>
+    </div>
+    <div class="heading">
+     <h1> Help & support </h1>
+    </div>
+    <div class="wrapper">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <button class="accordion">
+          Why room exchange project?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            The existing room allocation process fails to sufficiently address students' preferences, making it difficult for them to secure rooms near their friends or desired locations. Thus, there is an urgent need for an improved allocation system that prioritizes effectiveness and caters to the diverse needs of students.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          What is the purpose of the room exchange portal?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            The objective of the project is to elevate the room allocation process by implementing a centralized application where students can submit requests for room exchanges. The main emphasis is on optimizing room assignments to align more closely with students' preferences, particularly regarding their friends or preferred locations.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          How do I register an account on the portal?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+           1. To begin, please visit the homepage of the room exchange portal. Look for the "Sign Up" or "Register" button and click on it. You will be redirected to the registration page where you'll need to provide some basic information. <br>
+
+           2. On the registration form, fill out details such as your name, email address, and create a password. Ensure the information is accurate and complete. <br>
+
+           3. After filling out the form, click on the "Sign Up" button to create your account. <br>
+            
+           4. Once your account is successfully created, you may need to verify your email address. Check your inbox for a verification email and follow the instructions provided. <br>
+            
+           5. After your account is verified, return to the portal's homepage and log in using your email address and password. You'll then have access to all the features of the portal, including initiating room exchanges based on your preferences. <br>
+          </p>
+        </div>
+      </div>
+      <div class="faq">
+        <button class="accordion">
+          How do I search for available rooms?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+           1. Once you've logged in, navigate to the home page of the portal, which may be labeled as "Available Rooms."<br>
+
+           2. On this page, you'll encounter search filters that enable you to narrow down your search based on criteria such as location and preferences. <br>
+            
+           3. Enter your desired search criteria into the provided filters. You can select multiple filters to further refine your search. <br>
+            
+           4. After entering your search criteria, click on the "Search" or "Find Rooms" button to initiate the search process. <br>
+            
+           5.The portal will then display a list of available rooms that match your specified criteria. You can browse through these listings to review details such as room descriptions, photos, and any specific requirements. <br>
+            
+           6. If you come across a room that interests you, click on the listing to view more detailed information. From there, you can contact the owner to inquire about a potential room exchange.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          What do I do if I have additional questions or need further assistance?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            If you have any additional questions or require further assistance, don't hesitate to reach out to us. Simply click on the "Contact Us" link, and our dedicated support team will promptly assist you with any inquiries or concerns you may have. We're here to ensure your experience with the room exchange portal is as smooth and efficient as possible.
+          </p>
+        </div>
+      </div>
+    </div>
+    <section>
+      <div class="wrapper">
+        <h2>Feedback form</h2>
+        <form action="#">
+          <div class="user-details">
+            <input type="text" id="name" class="input" placeholder="Name">
+            <input type="text" id="email" class="input" placeholder="Email">
+          </div>
+          <textarea name="opinion" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+          <div class="btn-group">
+            <button type="submit" class="btn" onclick="show()">Submit</button>
+            <button class="btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+
+  </div>
+</body>
+
+</html>
+
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      this.parentElement.classList.toggle("active");
+
+      var pannel = this.nextElementSibling;
+
+      if (pannel.style.display === "block") {
+        pannel.style.display = "none";
+      } else {
+        pannel.style.display = "block";
+      }
+    });
+  }
+</script>
+<script>
+  const allStar = document.querySelectorAll('.rating .star')
+  const ratingValue = document.querySelector('.rating input')
+
+  allStar.forEach((item, idx) => {
+    item.addEventListener('click', function () {
+      let click = 0
+      ratingValue.value = idx + 1
+
+      allStar.forEach(i => {
+        i.classList.replace('bxs-star', 'bx-star')
+        i.classList.remove('active')
+      })
+      for (let i = 0; i < allStar.length; i++) {
+        if (i <= idx) {
+          allStar[i].classList.replace('bx-star', 'bxs-star')
+          allStar[i].classList.add('active')
+        } else {
+          allStar[i].style.setProperty('--i', click)
+          click++
+        }
+      }
+    })
+  })
+
+  function show() {
+  alert("Feedback submitted successfully!");
+}
+</script>
+</body>
+
+</html>  
