@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ToDo List</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/availableRooms.css" />
+    <link rel="stylesheet" href="../css/output.css" />
+    <style>
+      .home-icon {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 9999;
+        font-size: 40px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 24px;
+      }
+
+      .home-icon:hover {
+        color: #cccccc;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="MainPage.html" class="home-icon">
+      <span class="material-icons " style="font-size: 40px;">
+        home
+        </span>
+    </a>
+    <section class="booking" id="room-status">
+        <div class="section__container booking__container">
+          <form action="/" id="booking-form">
+            <div class="input__group">
+              <label for="block-name">Product name</label>
+              <input type="text" placeholder="product_name" id="product_name" class="text-white"/>
+            </div>
+            <div class="input__group">
+              <label for="category_name">Category name</label>
+              <select name="category_name" id="category_name" class="rounded-md shadow-sm">
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Stationary">Stationary</option>
+              </select>
+            </div>
+
+            <div class="input__group">
+              <label for="minPrice" class="mt-5">Minimum Price</label>
+              <input type="range" id="minPrice" name="minPrice" min="0" max="1000" class="w-full" value="0" />
+              <span id="minPriceValue" class="text-white">0</span>
+            </div>
+            <div class="input__group">
+              <label for="maxPrice">Maximum Price</label>
+              <input type="range" id="maxPrice" name="maxPrice" min="1000" max="10000" class="w-full" value="10000"/>
+              <span id="maxPriceValue" class="text-white">10000</span>
+            </div>
+
+          </form>
+          <div class="button">
+              <center>
+                <button type="button" class="btn" id="check-availability-btn">
+                Filter
+              </button>
+            </center>
+          </div>
+      </section>
+    <div
+      id="orderCards"
+      class="container mx-auto flex flex-wrap justify-center py-6"
+    ></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchOrderCards();
+
+        getCustomerId();
+
+        const minPriceSlider = document.getElementById("minPrice");
+        const maxPriceSlider = document.getElementById("maxPrice");
+        const minPriceValue = document.getElementById("minPriceValue");
+        const maxPriceValue = document.getElementById("maxPriceValue");
+
+  minPriceSlider.addEventListener("input", function () {
+    minPriceValue.textContent = this.value;
+  });
+
+  maxPriceSlider.addEventListener("input", function () {
+    maxPriceValue.textContent = this.value;
+  });
+
+  document.getElementById("check-availability-btn").addEventListener("click", function () {
+    filterProducts();
+  });
+      });
+
+      let customerID,cartID;
+
+      async function getCustomerId() {
+        const response = await fetch("http://localhost:3000/routes/fetch/getCustomerId");
+        const data = await response.json();
+        customerID = data.customer_id;
+        cartID = data.cart_id;
+        console.log(customerID);
+        console.log(cartID);
+      }
+
+      function addToCart(productId) {
+             // Replace with actual customer id
+        const cart_id = cartID; // Replace with actual cart id
+       // Retrieve the current quantity from the DOM for the specific product
+        const quantityElement = document.getElementById(`quantity-${productId}`);
+        const currentQuantity = parseInt(quantityElement.textContent);
+        console.log(currentQuantity);
+
+        const requestData = {
+          product: productId,
+          quantity: currentQuantity ,
+          customer_id: customerID,
+          cart_id: cart_id
+        };
+      
+
+        fetch("http://localhost:3000/routes/fetch/addToCart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(requestData)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Item added to cart:", data);
+          // Optionally, you can show a success message or perform any other action here
+        })
+        .catch((error) => {
+          console.error("Error adding item to cart:", error);
+          // Optionally, you can show an error message or perform any other action here
+        });
+      }
+
+
+      // Function to increase quantity
+      function increaseQuantity(button, productId) {
+        const quantityElement = document.getElementById(`quantity-${productId}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity++;
+        quantityElement.textContent = quantity;
+}
+
+// Function to handle decreasing the quantity
+function decreaseQuantity(button, productId) {
+  const quantityElement = document.getElementById(`quantity-${productId}`);
+  let quantity = parseInt(quantityElement.textContent);
+  if (quantity > 1) {
+    quantity--;
+    quantityElement.textContent = quantity;
+  }
+}
+
+function filterProducts() {
+  const minPrice = parseInt(document.getElementById("minPrice").value);
+  const maxPrice = parseInt(document.getElementById("maxPrice").value);
+  const productName = document.getElementById("product_name").value.toLowerCase();
+  const categoryName = document.getElementById("category_name").value.toLowerCase();
+
+  const orderCardsContainer = document.getElementById("orderCards");  
+  const orderCards = orderCardsContainer.querySelectorAll(".rounded-lg");
+
+  orderCards.forEach((orderCard) => {
+    const productNameCard = orderCard.querySelector("h3").textContent.toLowerCase();
+    const categoryNameCard = orderCard.querySelector("p").textContent.toLowerCase();
+    const price = parseInt(orderCard.querySelector("#order_price").textContent.slice(1));
+    console.log(price);
+
+    const isVisible =
+      (productName == productNameCard || productName === "") && 
+      (categoryName == categoryNameCard || categoryName === "") &&
+      price >= minPrice && price <= maxPrice;
+
+      console.log(isVisible);
+
+    orderCard.style.display = isVisible ? "block" : "none";
+  });
+}
+
+
+      function fetchOrderCards() {
+        fetch("http://localhost:3000/routes/fetch/getProducts")
+          .then((response) => response.json())
+          .then((data) => {
+            const orderCardsContainer = document.getElementById("orderCards");
+            data.forEach((order) => {
+
+              const orderCardHTML = `
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col m-3 items-start gap-2 cursor-pointer">
+                      <img src="${order.image}" width="300" height="300" alt="${order.PRODUCT_NAME}" class="aspect-square object-cover rounded-t-lg" />
+                      <div class="p-6 grid gap-2 w-full leading-none">
+                        <h3 class="whitespace-nowrap text-base font-semibold tracking-tighter">${order.PRODUCT_NAME}</h3>
+                        <p class="text-muted-foreground text-sm line-clamp-2">${order.PRODUCT_DESCRIPTION}</p>
+                        <div class="flex items-center justify-between">
+                          <span class="font-semibold" id="order_price">₹${order.PRICE}</span>
+                          <!-- Quantity button -->
+                          <div class="flex items-center">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this, ${order.PRODUCT_ID})">-</button>
+                            <span id="quantity-${order.PRODUCT_ID}" class="quantity">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this, ${order.PRODUCT_ID})">+</button>
+                          </div>
+                            <!-- Add to cart button -->
+                            <button onclick="addToCart(${order.PRODUCT_ID})" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90">
+                              Add to cart
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+              orderCardsContainer.insertAdjacentHTML(
+                "beforeend",
+                orderCardHTML
+              );
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching order cards:", error);
+          });
+
+          // Function to increase quantity
+      }
+    </script>
+  </body>
+</html>
