@@ -15,51 +15,64 @@ router.post("/signUp", (req, res) => {
   const pincode = req.body.pincode;
   const province = req.body.province;
 
-  const emailQuery = `SELECT * FROM customers WHERE email = "${email}"`;
+  connection.beginTransaction((err) => {
+    const emailQuery = `SELECT * FROM customers WHERE email = "${email}"`;
 
-  connection.query(emailQuery, (err, results) => {
-    if (err) {
-      console.error("Error fetching data:", err);
-      return res.status(500).send("Error fetching data");
-    }
+    connection.query(emailQuery, (err, results) => {
+      if (err) {
+        return connection.rollback(() => {
+          console.error("Error fetching swap request:", err);
+          res.status(500).send("Error accepting swap request");
+        });
+      }
 
-    if (results.length !== 0) {
-      return res.status(401).json({ status: "Account already exists" });
-    }
-
-    connection.beginTransaction((err) => {
+      if (results.length !== 0) {
+        return res.status(401).json({ status: "Account already exists" });
+      }
       const insertQueryLogin = `INSERT INTO logins (email, passcode) VALUES (?, ?)`;
       const insertParamsLogin = [email, password];
+    });
+    connection.query(insertQueryLogin, insertParamsLogin, (err, results) => {
+      if (err) {
+        return connection.rollback(() => {
+          console.error("Error fetching swap request:", err);
+          res.status(500).send("Error");
+        });
+      }
 
-      connection.query(insertQueryLogin, insertParamsLogin, (err, results) => {
-        if (err) {
-          console.error("Error inserting data:", err);
-          return res.status(500).send("Error inserting data");
-        }
+      const insertQueryCustomer = `INSERT INTO customers (FIRST_NAME, LAST_NAME, EMAIL, PHONE, ADDRESS1, CITY, PROVINCE, POSTAL_CODE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      const insertParamsCustomer = [
+        firstName,
+        lastname,
+        email,
+        phone,
+        address1,
+        city,
+        province,
+        pincode,
+      ];
 
-        const insertQueryCustomer = `INSERT INTO customers (FIRST_NAME, LAST_NAME, EMAIL, PHONE, ADDRESS1, CITY, PROVINCE, POSTAL_CODE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const insertParamsCustomer = [
-          firstName,
-          lastname,
-          email,
-          phone,
-          address1,
-          city,
-          province,
-          pincode,
-        ];
-
-        connection.query(
-          insertQueryCustomer,
-          insertParamsCustomer,
-          (err, results) => {
-            if (err) {
-              console.error("Error inserting data in Room Table:", err);
-              return res.status(500).send("Error inserting data");
-            }
+      connection.query(
+        insertQueryCustomer,
+        insertParamsCustomer,
+        (err, results) => {
+          if (err) {
+            return connection.rollback(() => {
+              console.error("Error fetching swap request:", err);
+              res.status(500).send("Error accepting swap request");
+            });
           }
-        ); // Proceed with inserting data if email is not already registered
-      });
+        }
+      ); // Proceed with inserting data if email is not already registered
+    });
+    connection.commit((err) => {
+      if (err) {
+        return connection.rollback(() => {
+          console.error("Error fetching swap request:", err);
+          res.status(500).send("Error accepting swap request");
+        });
+      }
+      res.status(200).send("Success!!!");
     });
   });
 

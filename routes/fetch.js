@@ -8,7 +8,6 @@ roomResult = [];
 router.get("/getProducts/:offset", (req, res) => {
   const user = req.session.user;
   const offset = req.params.offset;
-  const email = user["email"];
   connection.query(
     `SELECT * FROM PRODUCTS limit 25 offset ${offset * 25}`,
     (err, results) => {
@@ -24,11 +23,11 @@ router.get("/getProducts/:offset", (req, res) => {
 });
 
 router.get("/getOrdersProducts", (req, res) => {
-  const customer_id = req.header.customer_id;
+  const customer_id = req.headers.customer_id;
+  console.log("req is", req.headers);
+  console.log("Customer_id", customer_id);
   connection.query(
-    `SELECT o.PRODUCT_ID, o.ORDER_ID, o.ORDER_DATE, o.ORDER_VALUE
-    FROM ORDERS o, ORDER_ITEMS oi 
-    WHERE o.ORDER_ID=oi.ORDER_ID AND o.CUSTOMER_ID=${customer_id};`,
+    `SELECT o.ORDER_ID, o.ORDER_DATE, o.ORDER_VALUE FROM ORDERS as o, ORDER_ITEMS as oi WHERE o.ORDER_ID=oi.ORDER_ID AND o.CUSTOMER_ID=${customer_id};`,
     (err, results) => {
       if (err) {
         console.error("Error fetching products:", err);
@@ -94,7 +93,6 @@ router.get("/profile/:id", (req, res) => {
 
 router.get("/getCartProducts/:id", (req, res) => {
   const user = req.session.user;
-  const email = user["email"];
   const id = req.params.id;
   connection.query(
     `SELECT * FROM CARTS WHERE customer_id = ${id}`,
