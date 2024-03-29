@@ -67,7 +67,7 @@ router.post("/login", (req, res) => {
             res.status(500).json({ statusMessage: "Internal Server Error" });
           } else if (results.length === 0) {
             connection.query(
-              `insert into carts (customer_id) values ('(select customer_id from customers where email = ${email} limit 1)')`,
+              `insert into carts (customer_id) values ((select customer_id from customers where email = '${email}' limit 1));`,
               (err, results) => {
                 if (err) {
                   console.error("Error inserting data:", err);
@@ -104,7 +104,9 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  req.session.destroy();
+  // clear cookies
+  res.clearCookie("email");
+
   res.status(200).json({ message: "Logout successful" });
 });
 
