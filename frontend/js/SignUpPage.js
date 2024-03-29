@@ -98,7 +98,29 @@ function checkPassword() {
           "Network Error. Please try again.";
       });
     // Redirect to the next HTML file with URL parameters
-    res.cookie("email", email, { maxAge: 3600000, httpOnly: true });
+    fetch("http://localhost:3000/routes/authorization/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        passcode: password,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        // If API call is successful, redirect to another page
+        res.cookie("email", email, { maxAge: 3600000, httpOnly: true });
+        window.location.href = "../screens/MainPage.html";
+      } else {
+        // If API call fails, parse the JSON response and display error message
+        response.json().then((data) => {
+          document.getElementById("message2").style.backgroundColor = "red";
+          document.getElementById("message2").innerText =
+            "Error: " + data.statusMessage;
+        });
+      }
+    });
     window.location.href = "./MainPage.html";
   } else {
     message.textContent = "Passwords do not match";

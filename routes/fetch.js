@@ -25,8 +25,8 @@ router.get("/getCustomerId", (req, res) => {
 });
 
 router.get("/getProducts", (req, res) => {
-  const user = req.session.user;
-  const offset = req.params.offset;
+  // const offset = req.params.offset;
+  const offset = 0;
   connection.query(
     `SELECT * FROM PRODUCTS limit 25 offset ${offset * 25}`,
     (err, results) => {
@@ -318,6 +318,23 @@ router.post("/addToCart", (req, res) => {
       }
     );
   });
+});
+
+router.post("/deleteProductFromCart", (req, res) => {
+  const product_id = req.body.product_id;
+  const cart_id = req.body.cart_id;
+  connection.query(
+    `DELETE FROM CART_ITEMS WHERE PRODUCT_ID = ${product_id} AND CART_ID = ${cart_id}`,
+    (err, results) => {
+      if (err) {
+        console.error("Error deleting product from cart:", err);
+        res.status(500).send("Error deleting product from cart");
+        return;
+      }
+
+      res.status(200).json({ message: "Product deleted from cart" });
+    }
+  );
 });
 
 module.exports = router;

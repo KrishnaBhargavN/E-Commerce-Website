@@ -59,6 +59,45 @@ router.post("/login", (req, res) => {
       res.status(401).json({ statusMessage: "Incorrect password" });
     } else {
       res.cookie("email", email, { maxAge: 3600000, httpOnly: true });
+      connection.query(
+        `select * from carts inner join customers on customers.customer_id=carts.customer_id where customers.email = "${email}"`,
+        (err, results) => {
+          if (err) {
+            console.error("Error fetching data:", err);
+            res.status(500).json({ statusMessage: "Internal Server Error" });
+          } else if (results.length === 0) {
+            connection.query(
+              `insert into carts (customer_id) values ('(select customer_id from customers where email = ${email} limit 1)')`,
+              (err, results) => {
+                if (err) {
+                  console.error("Error inserting data:", err);
+                  res
+                    .status(500)
+                    .json({ statusMessage: "Internal Server Error" });
+                }
+              }
+            );
+          } else {
+            console.log("Cart already exists");
+            connection.query(
+              `select max(cart_id) as cart_id from carts where customer_id = "${customer_id}"`,
+              (err, results) => {
+                if (err) {
+                  console.error("Error fetching data:", err);
+                  res
+                    .status(500)
+                    .json({ statusMessage: "Internal Server Error" });
+                } else {
+                  res.cookie("cart_id", results[0].cart_id, {
+                    maxAge: 3600000,
+                    httpOnly: true,
+                  });
+                }
+              }
+            );
+          }
+        }
+      );
       res.status(200).json({ statusMessage: "Login successful" });
     }
   });
