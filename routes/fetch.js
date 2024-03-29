@@ -5,6 +5,25 @@ const connection = require("../database");
 const subject = "Your Room Swap Request has been accepted";
 roomResult = [];
 
+router.get("/getCustomerId", (req, res) => {
+  const email = req.cookies.email;
+
+  console.log("cookie", req.cookies);
+  console.log("email is", email);
+  connection.query(
+    `SELECT customer_id FROM customers WHERE email = '${email}'`,
+    (err, results) => {
+      if (err) {
+        console.error("Error fetching customer id:", err);
+        res.status(500).send("Error fetching customer id");
+        return;
+      }
+
+      res.status(200).json(results);
+    }
+  );
+});
+
 router.get("/getProducts", (req, res) => {
   const user = req.session.user;
   const offset = req.params.offset;

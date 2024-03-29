@@ -2,6 +2,47 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../database");
 
+router.post("/signUp", (req, res) => {
+  const fname = req.body.fname;
+  const lname = req.body.lname;
+  const email = req.body.email;
+  const contactNumber = req.body.contactNumber;
+  const address1 = req.body.address1;
+  const city = req.body.city;
+  const province = req.body.province;
+  const postal_code = req.body.postal_code;
+  const password = req.body.password;
+
+  const checkQuery = `SELECT * FROM logins WHERE email = "${email}";`;
+
+  connection.query(checkQuery, (err, results) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      res.status(500).json({ statusMessage: "Internal Server Error" });
+    } else if (results.length > 0) {
+      res.status(409).json({ statusMessage: "Email already exists" });
+    } else {
+      const insertQuery = `INSERT INTO logins (email, password) VALUES ("${email}", "${password}");`;
+      connection.query(insertQuery, (err, results) => {
+        if (err) {
+          console.error("Error inserting data:", err);
+          res.status(500).json({ statusMessage: "Internal Server Error" });
+        } else {
+          const insertLoginQuery = `INSERT INTO customers (first_name, last_name, email, phone, address1, city, province, postal_code) VALUES ("${fname}", "${lname}", "${email}", "${contactNumber}", "${address1}", "${city}", "${province}", "${postal_code}");`;
+          connection.query(insertLoginQuery, (err, results) => {
+            if (err) {
+              console.error("Error inserting data:", err);
+              res.status(500).json({ statusMessage: "Internal Server Error" });
+            } else {
+              res.status(200).json({ statusMessage: "Signup successful" });
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const givenPassword = req.body.passcode;
@@ -17,7 +58,7 @@ router.post("/login", (req, res) => {
     } else if (givenPassword != results[0].password) {
       res.status(401).json({ statusMessage: "Incorrect password" });
     } else {
-      req.session.user = req.body;
+      res.cookie("email", email, { maxAge: 3600000, httpOnly: true });
       res.status(200).json({ statusMessage: "Login successful" });
     }
   });

@@ -6,16 +6,19 @@ const app = express();
 const session = require("express-session");
 const cors = require("cors");
 const PORT = 3000;
+const cookie_paarser = require("cookie-parser");
 
-app.use(cors({ origin: false }));
+app.use(cookie_paarser());
+
+// app.use(cors({ origin: false }));
 // Session middleware
-app.use(
-  session({
-    secret: "changeitinprod!",
-    saveUninitialized: true,
-    cookie: { secure: false }, // Change to true if using HTTPS
-  })
-);
+// app.use(
+//   session({
+//     secret: "changeitinprod!",
+//     saveUninitialized: true,
+//     cookie: { secure: false }, // Change to true if using HTTPS
+//   })
+// );
 app.use(express.json());
 app.use(bodyParser.json());
 
