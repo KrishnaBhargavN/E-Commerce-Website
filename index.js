@@ -4,8 +4,10 @@ const fs = require("fs");
 const path = require("path");
 const app = express();
 const session = require("express-session");
+const cors = require("cors");
 const PORT = 3000;
 
+app.use(cors({ origin: false }));
 // Session middleware
 app.use(
   session({

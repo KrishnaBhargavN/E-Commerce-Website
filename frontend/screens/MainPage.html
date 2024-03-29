@@ -3,22 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <script src="../js/MainPage.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/MainPage.css" />
-    <title>Room Exchange </title>
+    <link rel="stylesheet" href="../css/output.css" />
+    <title>Room Exchange</title>
   </head>
   <body>
     <nav>
-      <button id="logout" style="margin-top: 10px; background-color: red
-      ; color: #ffffff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; float: right;">Logout</button>
+      <button
+        id="logout"
+        style="
+          margin-top: 10px;
+          background-color: red;
+          color: #ffffff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          float: right;
+        "
+      >
+        Logout
+      </button>
 
       <div class="nav__bar">
         <div class="nav__header">
           <div class="logo nav__logo">
-            <img src="https://yt3.ggpht.com/-QX4o89WhsLs/AAAAAAAAAAI/AAAAAAAAAAA/MT-DJJSnjAc/s900-c-k-no/photo.jpg"
-                alt="error loading image" height="50px" width="50px">
+            <img
+              src="https://yt3.ggpht.com/-QX4o89WhsLs/AAAAAAAAAAI/AAAAAAAAAAA/MT-DJJSnjAc/s900-c-k-no/photo.jpg"
+              alt="error loading image"
+              height="50px"
+              width="50px"
+            />
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
@@ -26,18 +50,29 @@
         </div>
         <ul class="nav__links" id="nav-links">
           <li><a href="#home">Home</a></li>
-          <li><a href="../screens/availableRooms.html">Room availability </a></li>
-          <li><a href="roomExchangeApplicationPage.html">Swap room request </a></li>
+          <li>
+            <a href="../screens/availableRooms.html">Room availability </a>
+          </li>
+          <li>
+            <a href="../screens/Products3.html">Products </a>
+          </li>
+          <li>
+            <a href="roomExchangeApplicationPage.html">Swap room request </a>
+          </li>
           <li><a href="#feature">Features</a></li>
           <li><a href="#about">About Us</a></li>
         </ul>
-        <img src="https://yt3.ggpht.com/3aYA0Uan4b_m-f82_mLofOC1c6KtsTIWUF314OExY0blcJpYPoHm5lRk0szSbBiQPWhNteXuxQ=s900-c-k-c0x00ffffff-no-rj" class="user-pic" onclick="toggleMenu()">
+        <img
+          src="https://yt3.ggpht.com/3aYA0Uan4b_m-f82_mLofOC1c6KtsTIWUF314OExY0blcJpYPoHm5lRk0szSbBiQPWhNteXuxQ=s900-c-k-c0x00ffffff-no-rj"
+          class="user-pic"
+          onclick="toggleMenu()"
+        />
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
-              <h4 id="profileName"> Loading...</h4>
+              <h4 id="profileName">Loading...</h4>
             </div>
-            <hr>
+            <hr />
 
             <a href="ProfilePage.html" target="_blank" class="sub-menu-link">
               <p>Profile details</p>
@@ -52,51 +87,52 @@
               <p>Help & support</p>
               <span></span>
             </a>
-
           </div>
         </div>
-        <a href="roomRequestMessages.html" >
+        <a href="roomRequestMessages.html">
           <button type="button" class="icon-button">
             <span class="material-icons">notifications</span>
             <span class="icon-button__badge" id="numberReq"></span>
           </button>
         </a>
-        
       </div>
     </nav>
 
     <header class="header" id="home">
       <div class="section__container header__container">
-        <h3 class="text-animation">Exchange room for better : <br><span></span></h3>
+        <h3 class="text-animation">
+          Exchange room for better : <br /><span></span>
+        </h3>
       </div>
     </header>
 
-    
     <section class="section__container feature__container" id="feature">
-
-      <h2 class="section__header"> Features</h2>
+      <h2 class="section__header">Features</h2>
       <div class="feature__grid">
         <div class="feature__card">
           <span><i class="ri-file-list-line"></i></span>
-          <h4>Room Listings: </h4>
+          <h4>Room Listings:</h4>
           <p>
-            Enable users to list their current rooms that they want to exchange, including details such as room type,
-            facilities, and any preferences for the desired room.
+            Enable users to list their current rooms that they want to exchange,
+            including details such as room type, facilities, and any preferences
+            for the desired room.
           </p>
         </div>
         <div class="feature__card">
           <span><i class="ri-bookmark-line"></i></span>
           <h4>Booking and confirmation:</h4>
           <p>
-            Facilitate the booking process by allowing users to send exchange requests, confirmations, and manage their
-            bookings through the portal.
+            Facilitate the booking process by allowing users to send exchange
+            requests, confirmations, and manage their bookings through the
+            portal.
           </p>
         </div>
         <div class="feature__card">
           <span><i class="ri-t-box-line"></i></span>
           <h4>Friendly interface:</h4>
           <p>
-            Clean design, focusing only on essential elements. Forms and input fields are straightforward.
+            Clean design, focusing only on essential elements. Forms and input
+            fields are straightforward.
           </p>
         </div>
         <!-- <div class="feature__card">
@@ -125,9 +161,35 @@
         </div> -->
       </div>
     </section>
+    <div
+      class="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
+    >
+      <div class="px-4 py-2">
+        <h1 class="text-xl font-bold text-gray-800 uppercase dark:text-white">
+          NIKE AIR
+        </h1>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi quos
+          quidem sequi illum facere recusandae voluptatibus
+        </p>
+      </div>
 
+      <img
+        class="object-cover w-full h-48 mt-2"
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80"
+        alt="NIKE AIR"
+      />
 
-    
+      <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+        <h1 class="text-lg font-bold text-white">$129</h1>
+        <button
+          class="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+        >
+          Add to cart
+        </button>
+      </div>
+    </div>
+
     <footer class="footer" id="about">
       <div class="section__container footer__container">
         <div class="footer__col">
@@ -135,17 +197,27 @@
             <h4>About Us</h4>
           </div>
           <p class="section__description">
-            "Discover convenience and connectivity with our hostel room swapping platform. Seamlessly exchange rooms, meet new peers, and elevate your hostel experience. Join the community now!"
+            "Discover convenience and connectivity with our hostel room swapping
+            platform. Seamlessly exchange rooms, meet new peers, and elevate
+            your hostel experience. Join the community now!"
           </p>
           <ul class="footer__socials">
             <li>
-              <a href="https://www.instagram.com/ietnitk/" target="_blank"><i class="ri-instagram-line"></i></a>
+              <a href="https://www.instagram.com/ietnitk/" target="_blank"
+                ><i class="ri-instagram-line"></i
+              ></a>
             </li>
             <li>
-              <a href="https://www.facebook.com/ietnitk/about/" target="_blank"><i class="ri-facebook-fill"></i></a>
+              <a href="https://www.facebook.com/ietnitk/about/" target="_blank"
+                ><i class="ri-facebook-fill"></i
+              ></a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/company/ietnitk/" target="_blank"><i class="ri-linkedin-fill"></i></a>
+              <a
+                href="https://www.linkedin.com/company/ietnitk/"
+                target="_blank"
+                ><i class="ri-linkedin-fill"></i
+              ></a>
             </li>
           </ul>
         </div>
@@ -171,7 +243,9 @@
               <span><i class="ri-record-mail-line"></i></span>
               <div>
                 <h5>Website link</h5>
-                <a href="https://linktr.ee/iet_nitk" target="_blank"><p>https://linktr.ee/iet_nitk </p></a>
+                <a href="https://linktr.ee/iet_nitk" target="_blank"
+                  ><p>https://linktr.ee/iet_nitk</p></a
+                >
               </div>
             </li>
             <li>
@@ -190,85 +264,83 @@
     </footer>
 
     <script src="https://unpkg.com/scrollreveal"></script>
-    
-    <script>
-      
-      let subMenu= document.getElementById("subMenu");
 
-      function toggleMenu(){
+    <script>
+      let subMenu = document.getElementById("subMenu");
+
+      function toggleMenu() {
         subMenu.classList.toggle("open-menu");
       }
-
     </script>
 
-<script>
-  function fetchData() {
-    fetch("http://localhost:3000/routes/profile/name", {
-        method: "GET",
-        headers: {
+    <script>
+      function fetchData() {
+        fetch("http://localhost:3000/routes/profile/name", {
+          method: "GET",
+          headers: {
             "Content-Type": "application/json",
-        },
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Failed to fetch name');
-        }
-    })
-    .then(data => {
-        const userName = data.name;
-        document.getElementById('profileName').innerText = userName;
-    })
-    .catch(error => {
-        console.error('Error fetching name:', error);
-    });
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Failed to fetch name");
+            }
+          })
+          .then((data) => {
+            const userName = data.name;
+            document.getElementById("profileName").innerText = userName;
+          })
+          .catch((error) => {
+            console.error("Error fetching name:", error);
+          });
 
-    fetch("http://localhost:3000/routes/fetch/countSwapRequests", {
-        method: "GET",
-        headers: {
+        fetch("http://localhost:3000/routes/fetch/countSwapRequests", {
+          method: "GET",
+          headers: {
             "Content-Type": "application/json",
-        },
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Failed to fetch swap requests count');
-        }
-    })
-    .then(data => {
-        const number = data.count;
-        document.getElementById('numberReq').innerText = number;
-    })
-    .catch(error => {
-        console.error('Error fetching swap requests count:', error);
-    });
-}
-
-
-fetchData();
-
-
-  const logoutButton = document.getElementById('logout');
-
-  logoutButton.addEventListener('click', async () => {
-    try {
-      const response = await fetch('http://localhost:3000/routes/authorization/logout', {
-        method: 'GET',
-      });
-
-      if (response.ok) {
-        window.location.href = 'SignUpPage.html';
-      } else {
-        alert('Logout failed. Please try again.');
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Failed to fetch swap requests count");
+            }
+          })
+          .then((data) => {
+            const number = data.count;
+            document.getElementById("numberReq").innerText = number;
+          })
+          .catch((error) => {
+            console.error("Error fetching swap requests count:", error);
+          });
       }
-    } catch (error) {
-      console.error('Logout error:', error);
-      alert('An error occurred during logout. Please try again later.');
-    }
-  });
 
-  </script>
+      fetchData();
+
+      const logoutButton = document.getElementById("logout");
+
+      logoutButton.addEventListener("click", async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/routes/authorization/logout",
+            {
+              method: "GET",
+            }
+          );
+
+          if (response.ok) {
+            window.location.href = "SignUpPage.html";
+          } else {
+            alert("Logout failed. Please try again.");
+          }
+        } catch (error) {
+          console.error("Logout error:", error);
+          alert("An error occurred during logout. Please try again later.");
+        }
+      });
+    </script>
   </body>
 </html>

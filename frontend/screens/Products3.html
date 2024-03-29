@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ToDo List</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../css/availableRooms.css" />
+    <link rel="stylesheet" href="../css/output.css" />
+    <style>
+      .home-icon {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 9999;
+        font-size: 40px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 24px;
+      }
+
+      .home-icon:hover {
+        color: #cccccc;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="MainPage.html" class="home-icon">
+      <span class="material-icons " style="font-size: 40px;">
+        home
+        </span>
+    </a>
+    <section class="booking" id="room-status">
+        <div class="section__container booking__container">
+          <form action="/" id="booking-form">
+            <div class="input__group">
+              <label for="block-name">Building name</label>
+              <input type="text" placeholder="building_name" />
+            </div>
+            <div class="input__group">
+              <label for="floor-number">Floor number</label>
+              <input type="text" placeholder="floor" />
+            </div>
+            <div class="input__group">
+              <label for="room-number">Room number</label>
+              <input type="text" placeholder="Room number" />
+            </div>
+            <div class="input__group">
+              <label for="room-number">Wing</label>
+              <input type="text" placeholder="wing" />
+            </div>
+          </form>
+          <div class="button">
+              <center>
+                <button type="button" class="btn" id="check-availability-btn">
+                Check availability
+              </button>
+            </center>
+          </div>
+      </section>
+    <div
+      id="orderCards"
+      class="container mx-auto flex flex-wrap justify-center py-6"
+    ></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchOrderCards();
+      });
+
+      let customer_id;
+
+      //get customer id
+      fetch("http://localhost:3000/routes/fetch/getCustomerId")
+        .then((response) => response.json())
+        .then((data) => {
+          customer_id = data.customer_id;
+        })
+        .catch((error) => {
+          console.error("Error fetching customer id:", error);
+        });
+
+      function addToCart(productId) {
+             // Replace with actual customer id
+        const cart_id = 1; // Replace with actual cart id
+       // Retrieve the current quantity from the DOM for the specific product
+        const quantityElement = document.getElementById(`quantity-${productId}`);
+        const currentQuantity = parseInt(quantityElement.textContent);
+        console.log(currentQuantity);
+
+        const requestData = {
+          product: productId,
+          quantity: currentQuantity ,
+          customer_id: customer_id,
+          cart_id: cart_id
+        };
+      }
+
+      //   fetch("http://localhost:3000/routes/fetch/addToCart", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     },
+      //     body: JSON.stringify(requestData)
+      //   })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log("Item added to cart:", data);
+      //     // Optionally, you can show a success message or perform any other action here
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error adding item to cart:", error);
+      //     // Optionally, you can show an error message or perform any other action here
+      //   });
+      // }
+
+
+      // Function to increase quantity
+      function increaseQuantity(button, productId) {
+        const quantityElement = document.getElementById(`quantity-${productId}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity++;
+        quantityElement.textContent = quantity;
+}
+
+// Function to handle decreasing the quantity
+function decreaseQuantity(button, productId) {
+  const quantityElement = document.getElementById(`quantity-${productId}`);
+  let quantity = parseInt(quantityElement);
+  if (quantity > 1) {
+    quantity--;
+    quantityElement.textContent = quantity;
+  }
+}
+
+      function fetchOrderCards() {
+        fetch("http://localhost:3000/routes/fetch/getProducts")
+          .then((response) => response.json())
+          .then((data) => {
+            const orderCardsContainer = document.getElementById("orderCards");
+            data.forEach((order) => {
+              const orderCardHTML = `
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col m-3 items-start gap-2 cursor-pointer">
+                      <img src="${order.image}" width="300" height="300" alt="${order.PRODUCT_NAME}" class="aspect-square object-cover rounded-t-lg" />
+                      <div class="p-6 grid gap-2 w-full leading-none">
+                        <h3 class="whitespace-nowrap text-base font-semibold tracking-tighter">${order.PRODUCT_NAME}</h3>
+                        <p class="text-muted-foreground text-sm line-clamp-2">${order.PRODUCT_DESCRIPTION}</p>
+                        <div class="flex items-center justify-between">
+                          <span class="font-semibold">$${order.PRICE}</span>
+                          <!-- Quantity button -->
+                          <div class="flex items-center">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this, ${order.PRODUCT_ID})">-</button>
+                            <span id="quantity-${order.PRODUCT_ID}" class="quantity">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this, ${order.PRODUCT_ID})">+</button>
+                          </div>
+                            <!-- Add to cart button -->
+                            <button onclick="addToCart(${order.PRODUCT_ID})" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90">
+                              Add to cart
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+              orderCardsContainer.insertAdjacentHTML(
+                "beforeend",
+                orderCardHTML
+              );
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching order cards:", error);
+          });
+
+          // Function to increase quantity
+      }
+    </script>
+  </body>
+</html>
