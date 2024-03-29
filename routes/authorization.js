@@ -58,7 +58,9 @@ router.post("/login", (req, res) => {
     } else if (givenPassword != results[0].password) {
       res.status(401).json({ statusMessage: "Incorrect password" });
     } else {
+      // Set cookies inside the callback
       res.cookie("email", email, { maxAge: 3600000, httpOnly: true });
+
       connection.query(
         `select * from carts inner join customers on customers.customer_id=carts.customer_id where customers.email = "${email}"`,
         (err, results) => {
@@ -74,13 +76,16 @@ router.post("/login", (req, res) => {
                   res
                     .status(500)
                     .json({ statusMessage: "Internal Server Error" });
+                } else {
+                  // Send response here
+                  res.status(200).json({ statusMessage: "Login successful" });
                 }
               }
             );
           } else {
             console.log("Cart already exists");
             connection.query(
-              `select max(cart_id) as cart_id from carts where customer_id = "${customer_id}"`,
+              `select max(cart_id) as cart_id from carts inner join customers on customers.customer_id=carts.customer_id where customers.email = '${email}'`,
               (err, results) => {
                 if (err) {
                   console.error("Error fetching data:", err);
@@ -88,17 +93,19 @@ router.post("/login", (req, res) => {
                     .status(500)
                     .json({ statusMessage: "Internal Server Error" });
                 } else {
+                  console.log("Cart ID:", results[0].cart_id);
                   res.cookie("cart_id", results[0].cart_id, {
                     maxAge: 3600000,
                     httpOnly: true,
                   });
+                  // Send response here
+                  res.status(200).json({ statusMessage: "Login successful" });
                 }
               }
             );
           }
         }
       );
-      res.status(200).json({ statusMessage: "Login successful" });
     }
   });
 });
