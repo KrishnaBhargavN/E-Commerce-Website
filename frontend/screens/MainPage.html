@@ -14,7 +14,7 @@
     />
     <link rel="stylesheet" href="../css/MainPage.css" />
     <link rel="stylesheet" href="../css/output.css" />
-    <title>Room Exchange</title>
+    <title>Shopify</title>
   </head>
   <body>
     <nav>
@@ -36,14 +36,6 @@
 
       <div class="nav__bar">
         <div class="nav__header">
-          <div class="logo nav__logo">
-            <img
-              src="https://yt3.ggpht.com/-QX4o89WhsLs/AAAAAAAAAAI/AAAAAAAAAAA/MT-DJJSnjAc/s900-c-k-no/photo.jpg"
-              alt="error loading image"
-              height="50px"
-              width="50px"
-            />
-          </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
           </div>
@@ -54,10 +46,13 @@
             <a href="../screens/Products.html">Products </a>
           </li>
           <li>
-            <a href="../screens/Carts.html">Cart </a>
+            <a href="../screens/Carts.html">Carts </a>
           </li>
           <li>
-            <a href="roomExchangeApplicationPage.html">Swap room request </a>
+            <a href="../screens/CartDetails.html">View cart </a>
+          </li>
+          <li>
+            <a href="../screens/Orders.html">Orders </a>
           </li>
           <li><a href="#feature">Features</a></li>
           <li><a href="#about">About Us</a></li>
@@ -70,38 +65,18 @@
         <div class="sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
-              <h4 id="profileName">Loading...</h4>
+              <h4 id="profileName">You</h4>
             </div>
             <hr />
-
-            <a href="ProfilePage.html" target="_blank" class="sub-menu-link">
-              <p>Profile details</p>
-              <span></span>
-            </a>
-            <a href="RoomProfileDetails.html" class="sub-menu-link">
-              <!-- <img src="images/room.png" alt="vada pav"> -->
-              <p>Room details</p>
-              <span></span>
-            </a>
-            <a href="helpAndSupport.html" class="sub-menu-link">
-              <p>Help & support</p>
-              <span></span>
-            </a>
           </div>
         </div>
-        <a href="roomRequestMessages.html">
-          <button type="button" class="icon-button">
-            <span class="material-icons">notifications</span>
-            <span class="icon-button__badge" id="numberReq"></span>
-          </button>
-        </a>
       </div>
     </nav>
 
     <header class="header" id="home">
       <div class="section__container header__container">
         <h3 class="text-animation">
-          Exchange room for better : <br /><span></span>
+          Shop anything at one place : <br /><span></span>
         </h3>
       </div>
     </header>
@@ -111,20 +86,18 @@
       <div class="feature__grid">
         <div class="feature__card">
           <span><i class="ri-file-list-line"></i></span>
-          <h4>Room Listings:</h4>
+          <h4>Multiple carts</h4>
           <p>
-            Enable users to list their current rooms that they want to exchange,
-            including details such as room type, facilities, and any preferences
-            for the desired room.
+            Users can create multiple carts to organize their shopping lists and
+            manage their purchases efficiently.
           </p>
         </div>
         <div class="feature__card">
           <span><i class="ri-bookmark-line"></i></span>
-          <h4>Booking and confirmation:</h4>
+          <h4>Wide range of products</h4>
           <p>
-            Facilitate the booking process by allowing users to send exchange
-            requests, confirmations, and manage their bookings through the
-            portal.
+            Users can choose from a wide range of products, including
+            electronics, clothing, accessories, and more.
           </p>
         </div>
         <div class="feature__card">
@@ -139,32 +112,7 @@
     </section>
     <div
       class="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
-    >
-      <div class="px-4 py-2">
-        <h1 class="text-xl font-bold text-gray-800 uppercase dark:text-white">
-          NIKE AIR
-        </h1>
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi quos
-          quidem sequi illum facere recusandae voluptatibus
-        </p>
-      </div>
-
-      <img
-        class="object-cover w-full h-48 mt-2"
-        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80"
-        alt="NIKE AIR"
-      />
-
-      <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
-        <h1 class="text-lg font-bold text-white">$129</h1>
-        <button
-          class="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
-        >
-          Add to cart
-        </button>
-      </div>
-    </div>
+    ></div>
 
     <footer class="footer" id="about">
       <div class="section__container footer__container">
@@ -173,9 +121,8 @@
             <h4>About Us</h4>
           </div>
           <p class="section__description">
-            "Discover convenience and connectivity with our hostel room swapping
-            platform. Seamlessly exchange rooms, meet new peers, and elevate
-            your hostel experience. Join the community now!"
+            We are a group of passionate developers who aim to provide a
+            seamless shopping experience to our users.
           </p>
           <ul class="footer__socials">
             <li>
@@ -201,29 +148,13 @@
           <h4>Services</h4>
           <div class="footer__links">
             <li><a href="#">Feedback</a></li>
-            <li><a href="#">Room Customization</a></li>
-            <li><a href="#">Room complaints</a></li>
+            <li><a href="#">Customization</a></li>
+            <li><a href="#">Complaints</a></li>
           </div>
         </div>
         <div class="footer__col">
           <h4>Contact Us</h4>
           <div class="footer__links">
-            <li>
-              <span><i class="ri-phone-fill"></i></span>
-              <div>
-                <h5>Club name</h5>
-                <p>Institution of Engineering and Technology (IET)</p>
-              </div>
-            </li>
-            <li>
-              <span><i class="ri-record-mail-line"></i></span>
-              <div>
-                <h5>Website link</h5>
-                <a href="https://linktr.ee/iet_nitk" target="_blank"
-                  ><p>https://linktr.ee/iet_nitk</p></a
-                >
-              </div>
-            </li>
             <li>
               <span><i class="ri-map-pin-2-fill"></i></span>
               <div>

@@ -54,7 +54,7 @@ router.get("/getOrdersProducts", (req, res) => {
         res.status(500).send("Error fetching products");
         return;
       }
-
+      console.log(results);
       res.status(200).json(results);
     }
   );
@@ -187,7 +187,7 @@ router.post("/placeOrder/:id", (req, res) => {
                 console.log("results => ", results);
                 const order_id = results[0].order_id;
                 connection.query(
-                  `select * from cart_items, carts where cart_items.cart_id=carts.cart_id and carts.customer_id=${customer_id} and carts.cart_id=${cart_id};`,
+                  `select * from cart_items natural join carts where carts.customer_id=${customer_id} and carts.cart_id=${cart_id} ;`,
                   (err, results) => {
                     if (err) {
                       return connection.rollback(() => {
@@ -195,10 +195,10 @@ router.post("/placeOrder/:id", (req, res) => {
                         res.status(500).send("Error placing order");
                       });
                     }
-
+                    console.log("check => ", results);
                     results.forEach((item) => {
                       connection.query(
-                        `INSERT INTO ORDER_ITEMS (ORDER_ID, PRODUCT_ID, QUANTITY) VALUES (${order_id}, ${item.product_id}, ${item.quantity})`,
+                        `INSERT INTO ORDER_ITEMS (ORDER_ID, PRODUCT_ID, QUANTITY) VALUES (${order_id}, ${item.PRODUCT_ID}, ${item.QUANTITY})`,
                         (err, results) => {
                           if (err) {
                             return connection.rollback(() => {
@@ -209,6 +209,37 @@ router.post("/placeOrder/:id", (req, res) => {
                               res.status(500).send("Error placing order");
                             });
                           }
+
+                          connection.query(
+                            `update products inner join cart_items on products.product_id=cart_items.product_id set products.stock=products.stock-cart_items.quantity where cart_items.cart_id=${cart_id};`,
+                            (err, results) => {
+                              if (err) {
+                                return connection.rollback(() => {
+                                  console.error(
+                                    "Error deleting from CARTS:",
+                                    err
+                                  );
+                                  res.status(500).send("Error placing order");
+                                });
+                              }
+                              connection.query(
+                                `DELETE FROM CART_ITEMS WHERE CART_ID = ${cart_id}`,
+                                (err, results) => {
+                                  if (err) {
+                                    return connection.rollback(() => {
+                                      console.error(
+                                        "Error deleting from CART_ITEMS:",
+                                        err
+                                      );
+                                      res
+                                        .status(500)
+                                        .send("Error placing order");
+                                    });
+                                  }
+                                }
+                              );
+                            }
+                          );
                         }
                       );
                     });
@@ -216,41 +247,6 @@ router.post("/placeOrder/:id", (req, res) => {
                 );
               }
             );
-          }
-        );
-        connection.query(
-          `update products inner join cart_items on products.product_id=cart_items.product_id set products.stock=products.stock-cart_items.quantity where cart_items.cart_id=${cart_id};`,
-          (err, results) => {
-            if (err) {
-              return connection.rollback(() => {
-                console.error("Error deleting from CARTS:", err);
-                res.status(500).send("Error placing order");
-              });
-            }
-          }
-        );
-
-        connection.query(
-          `DELETE FROM CART_ITEMS WHERE CART_ID = ${cart_id}`,
-          (err, results) => {
-            if (err) {
-              return connection.rollback(() => {
-                console.error("Error deleting from CART_ITEMS:", err);
-                res.status(500).send("Error placing order");
-              });
-            }
-          }
-        );
-
-        connection.query(
-          `DELETE FROM CARTS WHERE CART_ID = ${cart_id}`,
-          (err, results) => {
-            if (err) {
-              return connection.rollback(() => {
-                console.error("Error deleting from CARTS:", err);
-                res.status(500).send("Error placing order");
-              });
-            }
           }
         );
 
@@ -289,7 +285,7 @@ router.post("/addToCart", (req, res) => {
   const product = req.body.product;
   const quantity = req.body.quantity;
   const customer_id = req.body.customer_id;
-  const cart_id = req.body.cart_id;
+  const cart_id = req.cookies.cart_id;
   console.log("product => ", product);
   console.log("quantity => ", quantity);
   console.log("customer_id => ", customer_id);
@@ -338,6 +334,38 @@ router.post("/deleteProductFromCart", (req, res) => {
       res.status(200).json({ message: "Product deleted from cart" });
     }
   );
+});
+
+router.get("/getCarts", (req, res) => {
+  const customer_id = req.headers.customer_id;
+  connection.query(
+    `SELECT * FROM CARTS WHERE customer_id = ${customer_id}`,
+    (err, results) => {
+      if (err) {
+        console.error("Error fetching carts:", err);
+        res.status(500).send("Error fetching carts");
+        return;
+      }
+
+      res.status(200).json(results);
+    }
+  );
+});
+
+router.post("/changeCart", (req, res) => {
+  console.log("req.body => ", req.body);
+  console.log(req.cookies);
+  const cart_id = req.body.cartId;
+  res.clearCookie("cart_id");
+
+  res.cookie("cart_id", cart_id, { maxAge: 3600000, httpOnly: true });
+  console.log("cookie => ", req.cookies);
+  res.status(200).json({ message: "Cart changed" });
+});
+
+router.get("/getCartId", (req, res) => {
+  const cart_id = req.cookies.cart_id;
+  res.status(200).json({ cart_id });
 });
 
 module.exports = router;

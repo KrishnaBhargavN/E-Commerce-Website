@@ -110,10 +110,15 @@
         console.log(cartID);
       }
 
-      function addToCart(productId) {
-             // Replace with actual customer id
-        const cart_id = cartID; // Replace with actual cart id
-       // Retrieve the current quantity from the DOM for the specific product
+      async function addToCart(productId) {
+        // Calculate cart ID
+        // await fetchCartID();
+
+        alert("Items successfully added to cart");
+
+        // Replace with actual customer id
+        const cart_id = cartID;
+        // Retrieve the current quantity from the DOM for the specific product
         const quantityElement = document.getElementById(`quantity-${productId}`);
         const currentQuantity = parseInt(quantityElement.textContent);
         console.log(currentQuantity);
@@ -198,10 +203,11 @@ function filterProducts() {
             data.forEach((order) => {
 
               const orderCardHTML = `
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col m-3 items-start gap-2 cursor-pointer">
-                      <img src="${order.image}" width="300" height="300" alt="${order.PRODUCT_NAME}" class="aspect-square object-cover rounded-t-lg" />
+              <div class="rounded-lg border bg-card text-card-foreground shadow-sm flex flex-col m-3 items-start gap-2 cursor-pointer">
+                      <img src="${order.product_image_location}" width="300" height="300" alt="${order.PRODUCT_NAME}" class="aspect-square object-cover rounded-t-lg" />
                       <div class="p-6 grid gap-2 w-full leading-none">
                         <h3 class="whitespace-nowrap text-base font-semibold tracking-tighter">${order.PRODUCT_NAME}</h3>
+                        <p id="category">${order.CATEGORY}</p> 
                         <p class="text-muted-foreground text-sm line-clamp-2">${order.PRODUCT_DESCRIPTION}</p>
                         <div class="flex items-center justify-between">
                           <span class="font-semibold" id="order_price">₹${order.PRICE}</span>
