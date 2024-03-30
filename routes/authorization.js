@@ -113,7 +113,7 @@ router.post("/login", (req, res) => {
 router.get("/logout", (req, res) => {
   // clear cookies
   res.clearCookie("email");
-
+  res.clearCookie("cart_id");
   res.status(200).json({ message: "Logout successful" });
 });
 

@@ -110,10 +110,19 @@
         console.log(cartID);
       }
 
-      function addToCart(productId) {
-             // Replace with actual customer id
-        const cart_id = cartID; // Replace with actual cart id
-       // Retrieve the current quantity from the DOM for the specific product
+      async function fetchCartID() {
+        const response = await fetch("http://localhost:3000/routes/fetch/getCartID");
+        const data = await response.json();
+        cartID = data.cart_id;
+      }
+
+      async function addToCart(productId) {
+        // Calculate cart ID
+        await fetchCartID();
+
+        // Replace with actual customer id
+        const cart_id = cartID;
+        // Retrieve the current quantity from the DOM for the specific product
         const quantityElement = document.getElementById(`quantity-${productId}`);
         const currentQuantity = parseInt(quantityElement.textContent);
         console.log(currentQuantity);
